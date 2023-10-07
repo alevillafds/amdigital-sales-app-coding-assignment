@@ -109,7 +109,8 @@ Because of time consumption to solve this problem in a real-enterprise way, the 
 
 This is a overall agnostic diagram from a complete Enterprise Solution:
 
-TO-DO: IMAGE
+![architecture_diagram-entreprise solution](https://github.com/alevillafds/amdigital-sales-app-coding-assignment/assets/53422023/d5030c78-7946-4a6e-a51c-8d92e353ed14)
+
 
 * Real-Time System for report in real time based on a streaming solution (Windowed aggregations).
 * Historic System with one-day delay as a batch process for huge aggregations an statistics (all table aggregations, lots of records involved yearly-monthly).
@@ -119,7 +120,8 @@ TO-DO: IMAGE
 
 This is a overall diagram from a reduced solution to solve the problem:
 
-TO-DO: IMAGE
+![architecture_diagram-Simple Solution](https://github.com/alevillafds/amdigital-sales-app-coding-assignment/assets/53422023/a651a05b-9c56-4939-b8c2-302fe9103072)
+
 
 * Database to INSERT data optimized to generate report in real time by server queries.
 
@@ -129,7 +131,8 @@ The design of the database will be done for a NoSQL type database, specifically 
 
 The conceptual design is independent of the type of database. Entities are represented by rectangles and their attributes by ovals. The following figure shows the sales entity that has the attributes item, quantity, price and date:
 
-TO-DO: IMAGE
+![architecture_diagram-data_conceptual](https://github.com/alevillafds/amdigital-sales-app-coding-assignment/assets/53422023/dbbcf2d6-ad21-4937-a27d-75f06730b4cb)
+
 
 The physical design is the conceptual design once adapted to the Apache Cassandra table design along with the type that each column will have and the keyspace in which it will be. The correct way to define a table in Cassandra is taking into account the queries that are going to be made. In this case we have two queries:
 
@@ -143,7 +146,8 @@ Select the total amount of sales, average sales and total income for each item g
 
 For this specific case, the optimal thing would be to have two tables for the total aggregations and for the monthly aggregations. For simplicity, a single optimized table will be made for monthly aggregations:
 
-TO-DO: IMAGE
+![architecture_diagram-data_physical](https://github.com/alevillafds/amdigital-sales-app-coding-assignment/assets/53422023/d92b07f4-95b6-4ffd-938f-44ab3d299c95)
+
 
 The table will be in a keyspace called amdigital. It will have a Simple Partition Key (K) and two simple grouping keys (C). In Cassandra the Partition Key corresponds to the WHERE clause and the grouping keys to the GROUP BY clause. In the sales table the data will be distributed according to the item and in each partition the data will be ordered according to the month and these in turn according to the exact date.
 
