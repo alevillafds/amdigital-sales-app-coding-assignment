@@ -1,0 +1,12 @@
+version: '3.6'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      BACKEND_HOST: localhost
+    ports:
+      - 5000:5000
+    command: gunicorn -w 4 flaskSales:app -b 0.0.0.0:5000
