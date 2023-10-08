@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.amdigital.sales.grpg";
+import "google/protobuf/empty.proto";
+
+message Sale{
+  string item = 1;
+  int32 quantity = 2;
+  double price = 3;
+  string date =4;
+}
+
+message Monthly{
+  int32 total_quantity = 1;
+  double average_per_sale = 2;
+  int32 total_revenue = 3;
+}
+
+message Item{
+  int32 total_quantity = 1;
+  double average_per_sale = 2;
+  int32 total_revenue = 3;
+  map<string,Monthly> monthly = 4;
+}
+
+message Statistic{
+  map<string,Item> item = 1;
+}
+
+message SaleResponse {
+  int32 salesRecived = 1;
+}
+
+service SaleService {
+  rpc importSales(stream Sale) returns (SaleResponse) {};
+  rpc getStatistics(google.protobuf.Empty) returns (Statistic) {};
+}
