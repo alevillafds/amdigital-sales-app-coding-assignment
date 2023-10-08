@@ -14,31 +14,32 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bsales.proto\x12\x03\x61pi\x1a\x1bgoogle/protobuf/empty.proto\"C\n\x04Sale\x12\x0c\n\x04item\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\x05\x12\r\n\x05price\x18\x03 \x01(\x01\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\t\"R\n\x07Monthly\x12\x16\n\x0etotal_quantity\x18\x01 \x01(\x05\x12\x18\n\x10\x61verage_per_sale\x18\x02 \x01(\x01\x12\x15\n\rtotal_revenue\x18\x03 \x01(\x05\"\xb6\x01\n\x04Item\x12\x16\n\x0etotal_quantity\x18\x01 \x01(\x05\x12\x18\n\x10\x61verage_per_sale\x18\x02 \x01(\x01\x12\x15\n\rtotal_revenue\x18\x03 \x01(\x05\x12\'\n\x07monthly\x18\x04 \x03(\x0b\x32\x16.api.Item.MonthlyEntry\x1a<\n\x0cMonthlyEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x1b\n\x05value\x18\x02 \x01(\x0b\x32\x0c.api.Monthly:\x02\x38\x01\"k\n\tStatistic\x12&\n\x04item\x18\x01 \x03(\x0b\x32\x18.api.Statistic.ItemEntry\x1a\x36\n\tItemEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x18\n\x05value\x18\x02 \x01(\x0b\x32\t.api.Item:\x02\x38\x01\"$\n\x0cSaleResponse\x12\x14\n\x0csalesRecived\x18\x01 \x01(\x05\x32y\n\x0bSaleService\x12/\n\x0bimportSales\x12\t.api.Sale\x1a\x11.api.SaleResponse\"\x00(\x01\x12\x39\n\rgetStatistics\x12\x16.google.protobuf.Empty\x1a\x0e.api.Statistic\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bsales.proto\x1a\x1bgoogle/protobuf/empty.proto\"C\n\x04Sale\x12\x0c\n\x04item\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\x05\x12\r\n\x05price\x18\x03 \x01(\x01\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\t\"R\n\x07Monthly\x12\x16\n\x0etotal_quantity\x18\x01 \x01(\x05\x12\x18\n\x10\x61verage_per_sale\x18\x02 \x01(\x01\x12\x15\n\rtotal_revenue\x18\x03 \x01(\x05\"\xae\x01\n\x04Item\x12\x16\n\x0etotal_quantity\x18\x01 \x01(\x05\x12\x18\n\x10\x61verage_per_sale\x18\x02 \x01(\x01\x12\x15\n\rtotal_revenue\x18\x03 \x01(\x05\x12#\n\x07monthly\x18\x04 \x03(\x0b\x32\x12.Item.MonthlyEntry\x1a\x38\n\x0cMonthlyEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x17\n\x05value\x18\x02 \x01(\x0b\x32\x08.Monthly:\x02\x38\x01\"c\n\tStatistic\x12\"\n\x04item\x18\x01 \x03(\x0b\x32\x14.Statistic.ItemEntry\x1a\x32\n\tItemEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x14\n\x05value\x18\x02 \x01(\x0b\x32\x05.Item:\x02\x38\x01\"$\n\x0cSaleResponse\x12\x14\n\x0csalesRecived\x18\x01 \x01(\x05\x32m\n\x0bSaleService\x12\'\n\x0bimportSales\x12\x05.Sale\x1a\r.SaleResponse\"\x00(\x01\x12\x35\n\rgetStatistics\x12\x16.google.protobuf.Empty\x1a\n.Statistic\"\x00\x42\x1c\n\x18\x63om.amdigital.sales.grpgP\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'sales_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'\n\030com.amdigital.sales.grpgP\001'
   _ITEM_MONTHLYENTRY._options = None
   _ITEM_MONTHLYENTRY._serialized_options = b'8\001'
   _STATISTIC_ITEMENTRY._options = None
   _STATISTIC_ITEMENTRY._serialized_options = b'8\001'
-  _globals['_SALE']._serialized_start=49
-  _globals['_SALE']._serialized_end=116
-  _globals['_MONTHLY']._serialized_start=118
-  _globals['_MONTHLY']._serialized_end=200
-  _globals['_ITEM']._serialized_start=203
-  _globals['_ITEM']._serialized_end=385
-  _globals['_ITEM_MONTHLYENTRY']._serialized_start=325
-  _globals['_ITEM_MONTHLYENTRY']._serialized_end=385
-  _globals['_STATISTIC']._serialized_start=387
-  _globals['_STATISTIC']._serialized_end=494
-  _globals['_STATISTIC_ITEMENTRY']._serialized_start=440
-  _globals['_STATISTIC_ITEMENTRY']._serialized_end=494
-  _globals['_SALERESPONSE']._serialized_start=496
-  _globals['_SALERESPONSE']._serialized_end=532
-  _globals['_SALESERVICE']._serialized_start=534
-  _globals['_SALESERVICE']._serialized_end=655
+  _globals['_SALE']._serialized_start=44
+  _globals['_SALE']._serialized_end=111
+  _globals['_MONTHLY']._serialized_start=113
+  _globals['_MONTHLY']._serialized_end=195
+  _globals['_ITEM']._serialized_start=198
+  _globals['_ITEM']._serialized_end=372
+  _globals['_ITEM_MONTHLYENTRY']._serialized_start=316
+  _globals['_ITEM_MONTHLYENTRY']._serialized_end=372
+  _globals['_STATISTIC']._serialized_start=374
+  _globals['_STATISTIC']._serialized_end=473
+  _globals['_STATISTIC_ITEMENTRY']._serialized_start=423
+  _globals['_STATISTIC_ITEMENTRY']._serialized_end=473
+  _globals['_SALERESPONSE']._serialized_start=475
+  _globals['_SALERESPONSE']._serialized_end=511
+  _globals['_SALESERVICE']._serialized_start=513
+  _globals['_SALESERVICE']._serialized_end=622
 # @@protoc_insertion_point(module_scope)

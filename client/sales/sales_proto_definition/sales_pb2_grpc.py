@@ -16,12 +16,12 @@ class SaleServiceStub(object):
             channel: A grpc.Channel.
         """
         self.importSales = channel.stream_unary(
-            "/api.SaleService/importSales",
+            "/SaleService/importSales",
             request_serializer=sales__pb2.Sale.SerializeToString,
             response_deserializer=sales__pb2.SaleResponse.FromString,
         )
         self.getStatistics = channel.unary_unary(
-            "/api.SaleService/getStatistics",
+            "/SaleService/getStatistics",
             request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             response_deserializer=sales__pb2.Statistic.FromString,
         )
@@ -57,7 +57,7 @@ def add_SaleServiceServicer_to_server(servicer, server):
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        "api.SaleService", rpc_method_handlers
+        "SaleService", rpc_method_handlers
     )
     server.add_generic_rpc_handlers((generic_handler,))
 
@@ -82,7 +82,7 @@ class SaleService(object):
         return grpc.experimental.stream_unary(
             request_iterator,
             target,
-            "/api.SaleService/importSales",
+            "/SaleService/importSales",
             sales__pb2.Sale.SerializeToString,
             sales__pb2.SaleResponse.FromString,
             options,
@@ -111,7 +111,7 @@ class SaleService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/api.SaleService/getStatistics",
+            "/SaleService/getStatistics",
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             sales__pb2.Statistic.FromString,
             options,
