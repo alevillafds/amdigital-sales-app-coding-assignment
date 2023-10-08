@@ -11,7 +11,7 @@ class ApiClient:
 
     def getStatistic(self):
         response = self.client.getStatistics(google.protobuf.empty_pb2.Empty())
-        return response.message
+        return response
 
     # def sayHello(self, name):
     #     response = self.client.sayHello(HelloRequest(name=name))
