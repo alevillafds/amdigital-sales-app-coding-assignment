@@ -10,17 +10,7 @@ class ApiClient:
         self.client = SaleServiceStub(channel)
 
     def getStatistic(self):
-        response = self.client.getStatistics(google.protobuf.empty_pb2.Empty())
-        return response
+        return self.client.getStatistics(google.protobuf.empty_pb2.Empty())
 
-    # def sayHello(self, name):
-    #     response = self.client.sayHello(HelloRequest(name=name))
-    #     return response.message
-
-    # def getAll(self, length):
-    #     response = self.client.getAll(ApiRequest(length=length))
-    #     return response.items
-
-    # def getStream(self, length):
-    #     response = self.client.getStream(ApiRequest(length=length))
-    #     return response
+    def importSales(self, sales: list):
+        return self.client.importSales(sales)
