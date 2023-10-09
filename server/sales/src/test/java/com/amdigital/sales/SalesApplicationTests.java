@@ -20,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.TestPropertySource;
 
+import com.amdigital.sales.dao.SalesRepository;
 import com.amdigital.sales.grpg.Item;
 import com.amdigital.sales.grpg.Monthly;
 import com.amdigital.sales.grpg.Statistic;
@@ -31,47 +32,64 @@ import com.google.protobuf.Empty;
 import io.grpc.internal.testing.StreamRecorder;
 
 @SpringBootTest
-@ComponentScan({"com.amdigital.sales.dao"})
+@ComponentScan({ "com.amdigital.sales.dao" })
 @TestPropertySource(locations = "classpath:application-test.properties")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(TestEnvironment.class)
 class SalesApplicationTests {
+
+	@Autowired
+	SalesService salesService;
 	
-	@Autowired SalesService salesService;
+	@Autowired
+	SalesRepository salesRepository;
 
 	@Test
 	void contextLoads() {
 	}
-	
+
 	@Test
 	@Order(1)
-    void t01_getStatistics() throws Exception {
-        Empty request = Empty.newBuilder().build();
-        
-        StreamRecorder<Statistic> responseObserver = StreamRecorder.create();
-        salesService.getStatistics(request, responseObserver);
-        if (!responseObserver.awaitCompletion(5, TimeUnit.SECONDS)) {
-            fail("The call did not terminate in time");
-        }
-        assertNull(responseObserver.getError());
-        List<Statistic> results = responseObserver.getValues();
-        assertEquals(1, results.size());
-        Statistic response = results.get(0);
-        assertTrue(response.containsItem("avocado"));
-        assertTrue(response.containsItem("apple"));
-        assertTrue(response.containsItem("orange"));
-        assertTrue(response.containsItem("banana"));
-        
-        Item banana = response.getItemOrThrow("banana");
-        assertEquals(2, banana.getTotalQuantity());
-        assertEquals(3, banana.getTotalRevenue());
-        assertEquals(2, banana.getAveragePerSale());
-        
-        Map<String, Monthly> bananaMonthly = banana.getMonthlyMap();
-        assertTrue(bananaMonthly.containsKey("2020-10"));
-        assertEquals(2, bananaMonthly.get("2020-10").getTotalQuantity());
-        assertEquals(3, bananaMonthly.get("2020-10").getTotalRevenue());
-        assertEquals(2, bananaMonthly.get("2020-10").getAveragePerSale());
-    }
+	void t01_getStatistics() throws Exception {
+		Empty request = Empty.newBuilder().build();
+
+		StreamRecorder<Statistic> responseObserver = StreamRecorder.create();
+		salesService.getStatistics(request, responseObserver);
+		if (!responseObserver.awaitCompletion(5, TimeUnit.SECONDS)) {
+			fail("The call did not terminate in time");
+		}
+		assertNull(responseObserver.getError());
+		List<Statistic> results = responseObserver.getValues();
+		assertEquals(1, results.size());
+		Statistic response = results.get(0);
+		assertTrue(response.containsItem("avocado"));
+		assertTrue(response.containsItem("apple"));
+		assertTrue(response.containsItem("orange"));
+		assertTrue(response.containsItem("banana"));
+
+		Item banana = response.getItemOrThrow("banana");
+		assertEquals(2, banana.getTotalQuantity());
+		assertEquals(3, banana.getTotalRevenue());
+		assertEquals(2, banana.getAveragePerSale());
+
+		Map<String, Monthly> bananaMonthly = banana.getMonthlyMap();
+		assertTrue(bananaMonthly.containsKey("2020-10"));
+		assertEquals(2, bananaMonthly.get("2020-10").getTotalQuantity());
+		assertEquals(3, bananaMonthly.get("2020-10").getTotalRevenue());
+		assertEquals(2, bananaMonthly.get("2020-10").getAveragePerSale());
+	}
+
+	@Test
+	@Order(2)
+	void t02_saveSale() throws Exception {
+		com.amdigital.sales.grpg.Sale sale = com.amdigital.sales.grpg.Sale.newBuilder().setItem("avocado")
+				.setDate("2023-01-01T00:32:24+00:00").setPrice(2.3).setQuantity(8).build();
+		
+		com.amdigital.sales.model.Sale modelSale = com.amdigital.sales.model.Sale.fromGrpgSale(sale);
+		
+		assertEquals("avocado", modelSale.getItem());
+		
+		this.salesRepository.save(modelSale);
+	}
 
 }

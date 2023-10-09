@@ -61,7 +61,8 @@ public class SalesService extends SaleServiceImplBase {
 	/** Receive sale items as a stream. */
 	@Override
 	public StreamObserver<Sale> importSales(final StreamObserver<SaleResponse> saleResponse) {
-		return new SalesStream(saleResponse);
+		SalesStream stream = new SalesStream(saleResponse);
+		return stream;
 	}
 
 }

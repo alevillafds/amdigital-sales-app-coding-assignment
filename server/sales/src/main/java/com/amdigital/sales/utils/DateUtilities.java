@@ -23,7 +23,8 @@ public class DateUtilities {
 	/**
      * Default date format.
      */
-    private static final Format DEFAULT_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+    private static final Format DEFAULT_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+    //2023-01-01T00:32:24+00:00
 
     /**
      * Convert date in string format to millisecond format.
