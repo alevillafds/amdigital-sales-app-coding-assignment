@@ -1,8 +1,12 @@
 package com.amdigital.sales.stream;
 
+import java.text.ParseException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.amdigital.sales.dao.SalesRepository;
 import com.amdigital.sales.grpg.Sale;
 import com.amdigital.sales.grpg.SaleResponse;
 
@@ -18,6 +22,9 @@ public class SalesStream implements StreamObserver<Sale>{
 	private StreamObserver<SaleResponse> responseObserver;
 	private int count;
 	
+	@Autowired
+	SalesRepository salesRepository;
+	
 	public SalesStream(StreamObserver<SaleResponse> responseObserver) {
 		this.responseObserver = responseObserver;
 		this.count = 0;
@@ -25,7 +32,13 @@ public class SalesStream implements StreamObserver<Sale>{
 
 	@Override
 	public void onNext(Sale value) {
-		logger.info(String.format("New message %s", value.getItem()));
+		logger.info(String.format("Item name %s", value.getItem()));
+		logger.info(String.format("Date %s", value.getDate()));
+		try {
+			this.salesRepository.save(com.amdigital.sales.model.Sale.fromGrpgSale(value));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		count++;
 	}
 

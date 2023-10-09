@@ -1,6 +1,16 @@
 version: '3.6'
 
 services:
+  cassandra:
+    image: cassandra:3.10
+    ports:
+      - 9042:9042
+  cqlsh:
+    build:
+      dockerfile: Dockerfile
+    command: cqlsh cassandra 9042 --cqlversion="3.4.4" -f "/home/loadCassandra.cql"
+    depends_on:
+      - cassandra
   frontend:
     build:
       context: ../client/sales/
@@ -12,5 +22,9 @@ services:
     command: gunicorn -w 4 app:app -b 0.0.0.0:5000
   backend:
     image: sales:latest
+    environment:
+      cassandracontactpoints: cassandra
     ports:
       - 9090:9090
+    depends_on:
+      - cassandra
