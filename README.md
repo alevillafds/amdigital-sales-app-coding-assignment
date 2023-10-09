@@ -160,13 +160,11 @@ It is needed to organize all the project in one public repository for simplifica
 	-- client
 	-- server
 	-- infra
-	-- docs
 ```
 
 * client: folder for the client application.
 * server: folder for the server application.
 * infra: folder for the IaC code.
-* docs: folder for the documentation.
 
 ## Tech/framework used
 
