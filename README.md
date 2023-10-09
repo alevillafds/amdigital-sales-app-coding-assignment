@@ -151,16 +151,6 @@ For this specific case, the optimal thing would be to have two tables for the to
 
 The table will be in a keyspace called amdigital. It will have a Simple Partition Key (K) and two simple grouping keys (C). In Cassandra the Partition Key corresponds to the WHERE clause and the grouping keys to the GROUP BY clause. In the sales table the data will be distributed according to the item and in each partition the data will be ordered according to the month and these in turn according to the exact date.
 
-### Server Design
-
-TO-DO
-
-
-
-### Client Design
-
-TO-DO
-
 ## Repository organization
 
 It is needed to organize all the project in one public repository for simplification so i decided to organized the repository based in a **monorepo** with the following structure:
@@ -201,7 +191,24 @@ Server side:
 
 ## How to use?
 
-TO-DO: Step-by-Step how to deploy all.
+**Start:**
+
+```
+cd infra
+./start-servers.sh
+```
+
+Frontend endpoints:
+
+* localhost:5000/sales
+* localhost:5000/statistics
+
+**End:**
+
+```
+cd infra
+./stop-servers.sh
+```
 
 ## References
 
