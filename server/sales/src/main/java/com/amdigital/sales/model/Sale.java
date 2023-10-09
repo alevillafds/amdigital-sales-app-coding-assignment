@@ -26,8 +26,8 @@ public class Sale {
 	 * @throws ParseException 
 	 */
 	public static Sale fromGrpgSale(com.amdigital.sales.grpg.Sale saleGrpg) throws ParseException {
-//		Date dateMilliseconds = DateUtilities.stringDateToDate(saleGrpg.getDate());
-		return new Sale(saleGrpg.getItem(), DateUtilities.dateToStartOfMonth(new Date(saleGrpg.getDate())), new Date(saleGrpg.getDate()), saleGrpg.getQuantity(), saleGrpg.getPrice());
+		Date dateMilliseconds = DateUtilities.stringDateToDate(saleGrpg.getDate());
+		return new Sale(saleGrpg.getItem(), DateUtilities.dateToStartOfMonth(dateMilliseconds), dateMilliseconds, saleGrpg.getQuantity(), saleGrpg.getPrice());
 	}
 
 	public static Sale of(String item, Date month, Date date, int quantity, double price) {

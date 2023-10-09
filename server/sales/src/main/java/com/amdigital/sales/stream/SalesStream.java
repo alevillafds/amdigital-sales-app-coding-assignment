@@ -1,6 +1,8 @@
 package com.amdigital.sales.stream;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,7 @@ public class SalesStream implements StreamObserver<Sale>{
 	private static final Logger logger = LoggerFactory.getLogger(SalesStream.class.getName());
 	private StreamObserver<SaleResponse> responseObserver;
 	private int count;
+	private List<com.amdigital.sales.model.Sale> sales = new ArrayList<>();
 	
 	@Autowired
 	SalesRepository salesRepository;
@@ -31,11 +34,18 @@ public class SalesStream implements StreamObserver<Sale>{
 	}
 
 	@Override
-	public void onNext(Sale value) {
-		logger.info(String.format("Item name %s", value.getItem()));
-		logger.info(String.format("Date %s", value.getDate()));
+	public void onNext(Sale saleGrpg) {
+		logger.info(String.format("Item name %s", saleGrpg.getItem()));
+		logger.info(String.format("Date %s", saleGrpg.getDate()));
+		logger.info(String.format("Price name %s", saleGrpg.getPrice()));
+		logger.info(String.format("Quantity %s", saleGrpg.getQuantity()));
+		
+		com.amdigital.sales.model.Sale sale;
+
 		try {
-			this.salesRepository.save(com.amdigital.sales.model.Sale.fromGrpgSale(value));
+			sale = com.amdigital.sales.model.Sale.fromGrpgSale(saleGrpg);
+			if (sale != null) this.sales.add(sale);
+			else logger.info("Sale is null");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -52,6 +62,7 @@ public class SalesStream implements StreamObserver<Sale>{
 		SaleResponse response = SaleResponse.newBuilder().setSalesRecived(count).build();
 		responseObserver.onNext(response);
 		responseObserver.onCompleted();
+		this.salesRepository.saveAll(sales);
 	}
 
 }
